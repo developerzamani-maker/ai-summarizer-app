@@ -32,7 +32,12 @@ const Demo = () => {
       (item) => item.url === article.url
     );
 
-    if (existingArticle) return setArticle(existingArticle);
+    // if (existingArticle) return setArticle(existingArticle);
+    if(existingArticle) {
+      setArticle(existingArticle)
+      setArticle({...article, url:""})
+      return;
+    }
 
     const { data } = await getSummary({ articleUrl: article.url });
     if (data?.summary) {
@@ -43,6 +48,9 @@ const Demo = () => {
       setArticle(newArticle);
       setAllArticles(updatedAllArticles);
       localStorage.setItem("articles", JSON.stringify(updatedAllArticles));
+
+
+      setArticle({ ...article, url: "" });
     }
   };
 
